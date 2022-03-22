@@ -1,0 +1,107 @@
+title: Wasabi File uploader
+summary: Upload a file to Wasabi
+description: |-
+  Bitrise Step to upload a file to Wasabi.
+
+  This Step requires a Wasabi account.
+  To register a Wasabi account, [click here](https://wasabi.com).
+website: https://github.com/atanas-bitrise/bitrise-wasabi-uploader
+source_code_url: https://github.com/atanas-bitrise/bitrise-wasabi-uploader
+support_url: https://github.com/atanas-bitrise/bitrise-wasabi-uploader/issues
+type_tags:
+  - deploy
+  - upload
+  - uploader
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+deps:
+  brew:
+  - name: awscli
+    bin_name: aws
+  apt_get:
+  - name: awscli
+    bin_name: aws
+run_if: ""
+inputs:
+  - file_path: ""
+    opts:
+      title: "File path"
+      summary: "Path to the file to be uploaded"
+      description: ""
+      is_required: true
+  - app_slug: "$BITRISE_APP_SLUG"
+    opts:
+      title: "BITRISE's App-Slug variable (passed automatically on Bitrise)"
+      summary: ""
+      description: ""
+      is_required: true
+  - build_slug: "$BITRISE_BUILD_SLUG"
+    opts:
+      title: "BITRISE's Build-Slug variable (passed automatically on Bitrise)"
+      summary: ""
+      description: ""
+      is_required: true
+  - aws_access_key: ""
+    opts:
+      title: "Wasabi Access Key"
+      summary: ""
+      description: |
+        Wasabi Access Key
+      is_required: true
+      is_sensitive: true
+  - aws_secret_key: ""
+    opts:
+      title: "Wasabi Secret Access Key"
+      summary: ""
+      description: |
+        Wasabi Secret Access Key
+      is_required: true
+      is_sensitive: true
+  - bucket_name: ""
+    opts:
+      title: "Wasabi Bucket Name"
+      summary: ""
+      description: ""
+      is_required: true
+  - bucket_region: ""
+    opts:
+      title: "Wasabi Bucket Region"
+      summary: ""
+      description: |
+        Wasabi Bucket Region
+
+        If you use default s3 region (us-east-1), you can leave it empty,
+        otherwise you should provide this input.
+  - path_in_bucket: "bitrise_$BITRISE_APP_SLUG/${BITRISE_BUILD_TRIGGER_TIMESTAMP}_build_${BITRISE_BUILD_SLUG}"
+    opts:
+      title: "Wasabi File Path In Bucket"
+      summary: ""
+      description: |-
+        Optional, if no value specified then the default will be:
+
+            bitrise_$BITRISE_APP_SLUG/${BITRISE_BUILD_TRIGGER_TIMESTAMP}_build_${BITRISE_BUILD_SLUG}
+  - file_access_level: "public_read"
+    opts:
+      title: "Wasabi file access level"
+      value_options:
+        - "private"
+        - "public_read"
+      is_required: true
+outputs:
+  - WASABI_UPLOAD_STEP_URL: ""
+    opts:
+      title: "Wasabi Deploy URL"
+      summary: "Url generated for the uploaded file"
+      description: ""
+      is_expand: false
+      is_required: true
+      is_dont_change_value: true
+  - WASABI_UPLOAD_STEP_STATUS: ""
+    opts:
+      title: "Wasabi Deploy result ('success' or 'failed')"
+      summary: ""
+      description: ""
+      is_expand: false
+      is_required: true
+      is_dont_change_value: true
