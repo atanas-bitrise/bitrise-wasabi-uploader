@@ -1,5 +1,3 @@
-#!/usr/bin/env swift
-
 import Foundation
 
 let filePath = ProcessInfo.processInfo.environment["file_path"] ?? ""
@@ -11,6 +9,13 @@ let bucketName = ProcessInfo.processInfo.environment["bucket_name"] ?? ""
 let bucketRegion = ProcessInfo.processInfo.environment["bucket_region"] ?? ""
 let pathInBucket = ProcessInfo.processInfo.environment["path_in_bucket"] ?? ""
 let fileAccessLevel = ProcessInfo.processInfo.environment["file_access_level"] ?? ""
+
+func validateNotEmpty(variable: String, name: String) {
+    if variable.isEmpty {
+        print("Missing required input: \(name).")
+        exit(1)
+    }
+}
 
 // Print options
 print("Configs:")
@@ -27,8 +32,20 @@ print("* file_access_level: \(fileAccessLevel)")
 
 // Validation
 print("\nValidating...")
+
+validateNotEmpty(variable: filePath, name: "file_path")
+validateNotEmpty(variable: appSlug, name: "app_slug")
+validateNotEmpty(variable: buildSlug, name: "build_slug")
+validateNotEmpty(variable: wasabiAccessKey, name: "wasabi_access_key")
+validateNotEmpty(variable: wasabiSecretKey, name: "wasabi_secret_key")
+validateNotEmpty(variable: bucketName, name: "bucket_name")
+validateNotEmpty(variable: bucketRegion, name: "bucket_region")
+validateNotEmpty(variable: pathInBucket, name: "path_in_bucket")
+validateNotEmpty(variable: fileAccessLevel, name: "file_access_level")
+
 if !FileManager.default.fileExists(atPath: filePath) {
     print("No file found to upload. Terminating.")
     exit(1)
 }
+
 print("Validation successful.")
