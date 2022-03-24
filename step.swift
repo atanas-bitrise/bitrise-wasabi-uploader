@@ -17,6 +17,15 @@ func validateNotEmpty(variable: String, name: String) {
     }
 }
 
+func shell(_ args: String...) -> Int32 {
+    let task = Process()
+    task.launchPath = "/usr/bin/env"
+    task.arguments = args
+    task.launch()
+    task.waitUntilExit()
+    return task.terminationStatus
+}
+
 // Print options
 print("Configs:")
 print("* file_path: \(filePath)")
@@ -49,3 +58,7 @@ if !FileManager.default.fileExists(atPath: filePath) {
 }
 
 print("Validation successful.")
+
+// Call Wasabi API
+let outcome = shell("echo", "Test my shell")
+exit(outcome)
