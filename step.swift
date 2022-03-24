@@ -23,3 +23,12 @@ print("* bucket_name: \(bucketName)")
 print("* bucket_region: \(bucketRegion)")
 print("* path_in_bucket: \(pathInBucket)")
 print("* file_access_level: \(fileAccessLevel)")
+
+
+// Validation
+print("\nValidating...")
+if !FileManager.default.fileExists(atPath: filePath) {
+    print("No file found to upload. Terminating.")
+    exit(1)
+}
+print("Validation successful.")
