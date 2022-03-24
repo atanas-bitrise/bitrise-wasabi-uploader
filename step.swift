@@ -59,6 +59,9 @@ if !FileManager.default.fileExists(atPath: filePath) {
 
 print("Validation successful.")
 
+// Debug
+print("aws s3 cp \(filePath) s3://\(bucketName)/\(pathInBucket) --acl \(fileAccessLevel) --endpoint-url=https://s3.\(bucketRegion).wasabisys.com")
+
 // Call Wasabi API
 let outcome = shell("aws", "s3", "cp", "\(filePath)", "s3://\(bucketName)/\(pathInBucket)", "--acl", "\(fileAccessLevel)", "--endpoint-url=https://s3.\(bucketRegion).wasabisys.com")
 exit(outcome)
