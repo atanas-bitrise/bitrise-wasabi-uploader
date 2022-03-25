@@ -42,7 +42,7 @@ inputs:
       summary: ""
       description: ""
       is_required: true
-  - aws_access_key: ""
+  - wasabi_access_key: ""
     opts:
       title: "Wasabi Access Key"
       summary: ""
@@ -50,7 +50,7 @@ inputs:
         Wasabi Access Key
       is_required: true
       is_sensitive: true
-  - aws_secret_key: ""
+  - wasabi_secret_key: ""
     opts:
       title: "Wasabi Secret Access Key"
       summary: ""
@@ -81,12 +81,12 @@ inputs:
         Optional, if no value specified then the default will be:
 
             bitrise_$BITRISE_APP_SLUG/${BITRISE_BUILD_TRIGGER_TIMESTAMP}_build_${BITRISE_BUILD_SLUG}
-  - file_access_level: "public_read"
+  - file_access_level: "public-read"
     opts:
       title: "Wasabi file access level"
       value_options:
         - "private"
-        - "public_read"
+        - "public-read"
       is_required: true
 outputs:
   - WASABI_UPLOAD_STEP_URL: ""

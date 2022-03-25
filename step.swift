@@ -3,8 +3,8 @@ import Foundation
 let filePath = ProcessInfo.processInfo.environment["file_path"] ?? ""
 let appSlug = ProcessInfo.processInfo.environment["app_slug"] ?? ""
 let buildSlug = ProcessInfo.processInfo.environment["build_slug"] ?? ""
-let wasabiAccessKey = ProcessInfo.processInfo.environment["aws_access_key"] ?? ""
-let wasabiSecretKey = ProcessInfo.processInfo.environment["aws_secret_key"] ?? ""
+let wasabiAccessKey = ProcessInfo.processInfo.environment["wasabi_access_key"] ?? ""
+let wasabiSecretKey = ProcessInfo.processInfo.environment["wasabi_secret_key"] ?? ""
 let bucketName = ProcessInfo.processInfo.environment["bucket_name"] ?? ""
 let bucketRegion = ProcessInfo.processInfo.environment["bucket_region"] ?? ""
 let pathInBucket = ProcessInfo.processInfo.environment["path_in_bucket"] ?? ""
@@ -31,8 +31,8 @@ print("Configs:")
 print("* file_path: \(filePath)")
 print("* app_slug: \(appSlug)")
 print("* build_slug: \(buildSlug)")
-print("* aws_access_key: \(wasabiAccessKey.isEmpty ? "" : "***")")
-print("* aws_secret_key: \(wasabiSecretKey.isEmpty ? "" : "***")")
+print("* wasabi_access_key: \(wasabiAccessKey.isEmpty ? "" : "***")")
+print("* wasabi_secret_key: \(wasabiSecretKey.isEmpty ? "" : "***")")
 print("* bucket_name: \(bucketName)")
 print("* bucket_region: \(bucketRegion)")
 print("* path_in_bucket: \(pathInBucket)")
@@ -64,9 +64,10 @@ setenv("AWS_ACCESS_KEY_ID", wasabiAccessKey, 1)
 setenv("AWS_SECRET_ACCESS_KEY", wasabiSecretKey, 1)
 setenv("AWS_DEFAULT_REGION", bucketRegion, 1)
 
-// Debug
-print("aws s3 cp \(filePath) s3://\(bucketName)/\(pathInBucket) --acl \(fileAccessLevel) --endpoint-url=https://s3.\(bucketRegion).wasabisys.com")
-
 // Call Wasabi API
 let outcome = shell("aws", "s3", "cp", "\(filePath)", "s3://\(bucketName)/\(pathInBucket)", "--acl", "\(fileAccessLevel)", "--endpoint-url=https://s3.\(bucketRegion).wasabisys.com")
+
+// Output
+print("File upload was \((outcome == 0) ? "successful" : "unsuccessful").")
+
 exit(outcome)
