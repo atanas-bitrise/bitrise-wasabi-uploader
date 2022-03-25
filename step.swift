@@ -59,6 +59,11 @@ if !FileManager.default.fileExists(atPath: filePath) {
 
 print("Validation successful.")
 
+// Set up access environment variables
+setenv("AWS_ACCESS_KEY_ID", wasabiAccessKey, 1)
+setenv("AWS_SECRET_ACCESS_KEY", wasabiSecretKey, 1)
+setenv("AWS_DEFAULT_REGION", bucketRegion, 1)
+
 // Debug
 print("aws s3 cp \(filePath) s3://\(bucketName)/\(pathInBucket) --acl \(fileAccessLevel) --endpoint-url=https://s3.\(bucketRegion).wasabisys.com")
 
