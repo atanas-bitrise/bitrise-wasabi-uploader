@@ -70,7 +70,7 @@ let outcome = shell("aws", "s3", "cp", "\(filePath)", "s3://\(bucketName)/\(path
 // Output
 print("File upload was \((outcome == 0) ? "successful" : "unsuccessful").")
 
-_ = shell("envman", "add", "--key", "WASABI_UPLOAD_STEP_URL", "--value", "https://s3.\(bucketRegion).wasabisys.com/\(bucketName)/\(\pathInBucket)")
+_ = shell("envman", "add", "--key", "WASABI_UPLOAD_STEP_URL", "--value", "https://s3.\(bucketRegion).wasabisys.com/\(bucketName)/\(pathInBucket)")
 _ = shell("envman", "add", "--key", "WASABI_UPLOAD_STEP_STATUS", "--value", "\((outcome == 0) ? "success" : "failed")")
 
 exit(outcome)
