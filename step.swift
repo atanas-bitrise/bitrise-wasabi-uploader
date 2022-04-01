@@ -26,7 +26,7 @@ func shell(_ args: String...) -> Int32 {
     return task.terminationStatus
 }
 
-// Print options
+// Print parameters
 print("Configs:")
 print("* file_path: \(filePath)")
 print("* app_slug: \(appSlug)")
